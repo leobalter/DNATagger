@@ -1,0 +1,255 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!--
+   Authors:
+      Daniel Monteiro Basso
+      Nicole de Miranda Scherer
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Library General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DNATagger - alignment colorizer</title>
+   <link type="text/css" href="dnatagger.css" rel="stylesheet" />
+	<script type="text/javascript" src="aliases.js"></script>
+	<script type="text/javascript" src="transTables.js"></script>
+	<script type="text/javascript" src="colorTables.js"></script>
+	<script type="text/javascript" src="colorEdit.js"></script>
+	<script type="text/javascript" src="menu.js"></script>
+	<script type="text/javascript" src="dnatagger.js"></script>
+</head>
+
+<body onload="initialize();">
+<div>
+<ul id="menu">
+  <li><a href="#" id="m_edit" 
+       onclick="javascript: return menu.select('edit');" 
+       class="here">Edit</a></li>
+  <li><a href="#" id="m_view" 
+       onclick="javascript: return menu.select('view');"
+       >View</a></li>
+  <li><a href="#" id="m_color" 
+       onclick="javascript: return menu.select('color');"
+       >Colors</a></li>
+  <li><a href="#" id="m_trans"
+       onclick="javascript: return menu.select('trans');"
+       >Translation Table</a></li>
+  <li><a href="#" id="m_instructions" 
+       onclick="javascript: return menu.select('instructions');"
+       >Instructions</a></li>
+  <li><a href="#" id="m_about" 
+       onclick="javascript: return menu.select('about');"
+       >About DNATagger</a></li>
+</ul>
+<br/>
+
+<div id="d_edit">
+<textarea id="alignEdit" cols="80" rows="24">
+
+</textarea>
+</div>
+
+<div id="d_view">
+<pre id="viewOutput">
+</pre>
+</div>
+
+<div id="d_color">
+   <div id="rgbSelector">
+      <div id="Selector0">
+      </div>
+      <div id="Selector1">
+      </div>
+      <div id="Selector2">
+      </div>
+   </div>
+
+<table cellspacing='5px'>
+<tr>
+<td>
+   Click over the aminoacid<br/>you want to edit the color:<br/><br/>
+   <div id="colorAminoMenu">
+   </div>
+</td>
+<td>
+   <div id="aminoColorEditing">
+   </div><br/>
+   
+   <table><tr>
+   <td>
+      Select the Text color:
+      <div id="Selector00">
+      </div>
+      <div id="Selector01">
+      </div>
+      <div id="Selector02">
+      </div>
+   </td>
+   <td>
+      Select the Background color:
+      <div id="Selector10">
+      </div>
+      <div id="Selector11">
+      </div>
+      <div id="Selector12">
+      </div>
+   </td>
+   </tr></table><br/>
+   
+   <select id="colorTableSelect" onchange="javascript: color.select();">
+      <option>Default</option>
+   </select><br/><br/>
+   
+   <textarea id="colorTableEdit" cols="80" rows="24">
+   </textarea>
+   
+   <a style="font-size: smaller;" href="#" onclick="color.interpret();">
+   Interpret this color table code
+   </a>
+</td>
+</tr>
+</table>
+</div>
+
+<div id="d_trans" style="font-size: smaller; padding: 20px;">
+</div>
+
+<div id="d_instructions">
+<pre>
+  Dear User,
+
+  
+  All the functions of this program are accessible through the tabs at the top of
+  this page: 
+  
+  - Edit
+  - View
+  - Colors
+  - Translation Table
+  - Instructions (this tab)
+  - About
+  
+  
+  
+  - Getting started
+  
+  Copy your alignment and paste it on the "Edit" tab, then click on the "View" tab.
+    
+  
+  - Edit
+  
+  You can edit your sequences on the "Edit" tab, just as though you were using a
+  simple text editor like NEdit, GEdit, Kate, Notepad, etc... 
+  You can copy and paste sequences, insert or delete characters, move gap symbols,
+  change names, write text. Use your freedom. 
+  
+  
+  - View
+  
+  Here you can analyze your sequences that are colored with respect to the genetic
+  code and the amino acids represented there. If you want to edit the alignment,
+  you may change to the "Edit" tab and work on the plain text, and then click back
+  on the "View" tab to analyze the changes. 
+  
+  
+  - Translation Tables
+  
+  To select an alternative genetic code, you can click on the "Translation Table"
+  tab and choose one of the 17 genetic codes available in the selection box. 
+  
+  
+  - Colors
+  
+  On the "Colors" tab, you can also choose the colors that should be used to
+  represent each amino acid. There are some options on a selection bar: A Default
+  table with no biological meaning other than the highlighting of non-synonymous
+  substitutions, an implementation of the Taylor colors, described in his paper of
+  1997 (Taylor, W.R. 1997. Residual colours: A proposal for aminochromography.
+  PROTEIN ENG., Vol. 10, No. 7. pp. 743-746.), and an alternative version of
+  Taylor's table, with different foreground colors. 
+  
+  Alternatively, you can create your own color table. To change the background and
+  the foreground colors for each amino acid you must select the amino acid (or
+  stop) symbol to be edited, then click on the respective color bars for text or
+  background color to change the proportions of red, green and blue for the final
+  color. When you get the desired color combination for this amino acid, click on
+  "apply changes". 
+  
+  You can also save your personal selection of colors: Select the text within the
+  box (beginning with "color.table=") and save in a plain text file for future
+  use. When you want to use your own table later on, you just need to replace the
+  text from this box, copying the text you saved in there and clicking "interpret
+  this color table". 
+  
+  If you wish to have your custom color table shown in the selection box, you may
+  send it to dnatagger@gmail.com, so we may add it to the next upgrade of
+  DNATagger. 
+  
+  
+  
+  If you wish to use DNATagger off-line, you may save the page just as you would
+  for a regular web page, making sure you select the option to save the whole page
+  (instead of "only HTML"). 
+</pre>
+</div>
+
+<div id="d_about">
+<h2>DNATagger - Alignment Colorizer</h2>
+
+<pre>
+   Authors:
+      Daniel Monteiro Basso &lt;<a
+         href="mailto:daniel@basso.inf.br">daniel@basso.inf.br</a>&gt;
+      Nicole de Miranda Scherer &lt;<a 
+         href="mailto:scherer@cs.uni-duesseldorf.de">scherer@cs.uni-duesseldorf.de</a>&gt;
+      (You may also reach us through &lt;<a 
+         href="mailto:dnatagger@gmail.com">dnatagger@gmail.com</a>&gt;)
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Library General Public License for more details.
+
+   <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>
+</pre>
+
+Cite:<br />
+Scherer N.M. and Basso D.M. (2008) DNATagger, colors for codons. Genet.<br />
+Mol. Res. 7 (3): 853-860<br />
+<br />
+We highly recommend the use of a standards compliant web browser, such as 
+<a href="http://www.mozilla.org">Mozilla Firefox. 
+<img src="firefox.gif" alt="Firefox"/></a><br/>
+This site follows the W3C XHTML 1.0 Strict standard, you may validate by
+clicking the following icon:
+<a href="http://validator.w3.org/check?uri=http://www.inf.ufrgs.br/~dmbasso/dnatagger"><img
+        src="valid-xhtml10.png"
+        alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
+</div>
+
+</div>
+</body>
+</html>
+
+
