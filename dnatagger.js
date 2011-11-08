@@ -166,20 +166,7 @@ function initialize() {
     translation = new Translation();
     colorizer = new Colorizer();
     color = new Color();
-    menu = new Menu("edit", {
-        edit: function() {},
-        color: function() {},
-        trans: function() {},
-        instructions: function() {},
-        about: function() {},
-        view: function() {
-            var src = document.getElementById("alignEdit");
-            var dest = document.getElementById("viewOutput");
-            dest.innerHTML = colorizer.process(src.value);
-        }
-    });
     translation.showTable();
     color.init();
-    menu.select("instructions");
     return false;
 }

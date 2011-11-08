@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+	<title>DNATagger - alignment colorizer</title>
 
 <!--
    Authors:
@@ -20,117 +24,98 @@
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 -->
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-	<title>DNATagger - alignment colorizer</title>
   <link href="dnatagger.css" rel="stylesheet">
+  <script src="http://code.jquery.com/jquery-1.7.js"></script>
 	<script src="aliases.js"></script>
 	<script src="transTables.js"></script>
 	<script src="colorTables.js"></script>
 	<script src="colorEdit.js"></script>
-	<script src="menu.js"></script>
 	<script src="dnatagger.js"></script>
+  <script src="mocha.js"></script>
 </head>
 
-<body onload="initialize();">
-<div>
-<ul id="menu">
-  <li><a href="#" id="m_edit" 
-       onclick="javascript: return menu.select('edit');" 
-       class="here">Edit</a></li>
-  <li><a href="#" id="m_view" 
-       onclick="javascript: return menu.select('view');"
-       >View</a></li>
-  <li><a href="#" id="m_color" 
-       onclick="javascript: return menu.select('color');"
-       >Colors</a></li>
-  <li><a href="#" id="m_trans"
-       onclick="javascript: return menu.select('trans');"
-       >Translation Table</a></li>
-  <li><a href="#" id="m_instructions" 
-       onclick="javascript: return menu.select('instructions');"
-       >Instructions</a></li>
-  <li><a href="#" id="m_about" 
-       onclick="javascript: return menu.select('about');"
-       >About DNATagger</a></li>
-</ul>
-<br/>
+<body>
+  <div>
+    <ul id="menu">
+      <li><a href="#d_edit"         id="m_edit" class="here">Edit</a></li>
+      <li><a href="#d_view"         id="m_view"             >View</a></li>
+      <li><a href="#d_color"        id="m_color"            >Colors</a></li>
+      <li><a href="#d_trans"        id="m_trans"            >Translation Table</a></li>
+      <li><a href="#d_instructions" id="m_instructions"     >Instructions</a></li>
+      <li><a href="#d_about"        id="m_about"            >About DNATagger</a></li>
+    </ul>
+    <br/>
 
-<div id="d_edit">
-<textarea id="alignEdit" cols="80" rows="24">
+    <div id="d_edit" class="viewtabs">
+      <textarea id="alignEdit" cols="80" rows="24"></textarea>
+    </div>
 
-</textarea>
-</div>
+    <div id="d_view" class="viewtabs">
+      <pre id="viewOutput"></pre>
+    </div>
 
-<div id="d_view">
-<pre id="viewOutput">
-</pre>
-</div>
+    <div id="d_color" class="viewtabs">
+       <div id="rgbSelector">
+          <div id="Selector0">
+          </div>
+          <div id="Selector1">
+          </div>
+          <div id="Selector2">
+          </div>
+       </div>
 
-<div id="d_color">
-   <div id="rgbSelector">
-      <div id="Selector0">
-      </div>
-      <div id="Selector1">
-      </div>
-      <div id="Selector2">
-      </div>
-   </div>
+      <table cellspacing='5px'>
+        <tr>
+          <td>
+             Click over the aminoacid<br/>you want to edit the color:<br/><br/>
+             <div id="colorAminoMenu">
+             </div>
+          </td>
+          <td>
+             <div id="aminoColorEditing">
+             </div><br/>
+             
+             <table><tr>
+             <td>
+                Select the Text color:
+                <div id="Selector00">
+                </div>
+                <div id="Selector01">
+                </div>
+                <div id="Selector02">
+                </div>
+             </td>
+             <td>
+                Select the Background color:
+                <div id="Selector10">
+                </div>
+                <div id="Selector11">
+                </div>
+                <div id="Selector12">
+                </div>
+             </td>
+             </tr></table><br/>
+             
+             <select id="colorTableSelect" onchange="javascript: color.select();">
+                <option>Default</option>
+             </select><br/><br/>
+             
+             <textarea id="colorTableEdit" cols="80" rows="24">
+             </textarea>
+             
+             <a style="font-size: smaller;" href="#" onclick="color.interpret();">
+             Interpret this color table code
+             </a>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-<table cellspacing='5px'>
-<tr>
-<td>
-   Click over the aminoacid<br/>you want to edit the color:<br/><br/>
-   <div id="colorAminoMenu">
-   </div>
-</td>
-<td>
-   <div id="aminoColorEditing">
-   </div><br/>
-   
-   <table><tr>
-   <td>
-      Select the Text color:
-      <div id="Selector00">
-      </div>
-      <div id="Selector01">
-      </div>
-      <div id="Selector02">
-      </div>
-   </td>
-   <td>
-      Select the Background color:
-      <div id="Selector10">
-      </div>
-      <div id="Selector11">
-      </div>
-      <div id="Selector12">
-      </div>
-   </td>
-   </tr></table><br/>
-   
-   <select id="colorTableSelect" onchange="javascript: color.select();">
-      <option>Default</option>
-   </select><br/><br/>
-   
-   <textarea id="colorTableEdit" cols="80" rows="24">
-   </textarea>
-   
-   <a style="font-size: smaller;" href="#" onclick="color.interpret();">
-   Interpret this color table code
-   </a>
-</td>
-</tr>
-</table>
-</div>
+    <div id="d_trans" style="font-size: smaller; padding: 20px;"class="viewtabs">
+    </div>
 
-<div id="d_trans" style="font-size: smaller; padding: 20px;">
-</div>
-
-<div id="d_instructions">
-<pre>
+    <div id="d_instructions" class="viewtabs">
+      <pre>
   Dear User,
 
   
@@ -205,13 +190,13 @@
   If you wish to use DNATagger off-line, you may save the page just as you would
   for a regular web page, making sure you select the option to save the whole page
   (instead of "only HTML"). 
-</pre>
-</div>
+      </pre>
+    </div>
 
-<div id="d_about">
-<h2>DNATagger - Alignment Colorizer</h2>
+    <div id="d_about" class="viewtabs">
+      <h2>DNATagger - Alignment Colorizer</h2>
 
-<pre>
+      <pre>
    Authors:
       Daniel Monteiro Basso &lt;<a
          href="mailto:daniel@basso.inf.br">daniel@basso.inf.br</a>&gt;
@@ -231,23 +216,23 @@
    GNU Library General Public License for more details.
 
    <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>
-</pre>
+      </pre>
 
-Cite:<br />
-Scherer N.M. and Basso D.M. (2008) DNATagger, colors for codons. Genet.<br />
-Mol. Res. 7 (3): 853-860<br />
-<br />
-We highly recommend the use of a standards compliant web browser, such as 
-<a href="http://www.mozilla.org">Mozilla Firefox. 
-<img src="firefox.gif" alt="Firefox"/></a><br/>
-<!--This site follows the W3C XHTML 1.0 Strict standard, you may validate by
-clicking the following icon:
-<a href="http://validator.w3.org/check?uri=http://www.inf.ufrgs.br/~dmbasso/dnatagger"><img
-        src="valid-xhtml10.png"
-        alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>-->
-</div>
+      Cite:<br />
+      Scherer N.M. and Basso D.M. (2008) DNATagger, colors for codons. Genet.<br />
+      Mol. Res. 7 (3): 853-860<br />
+      <br />
+      We highly recommend the use of a standards compliant web browser, such as 
+      <a href="http://www.mozilla.org">Mozilla Firefox. 
+      <img src="firefox.gif" alt="Firefox"/></a><br/>
+      <!--This site follows the W3C XHTML 1.0 Strict standard, you may validate by
+      clicking the following icon:
+      <a href="http://validator.w3.org/check?uri=http://www.inf.ufrgs.br/~dmbasso/dnatagger"><img
+              src="valid-xhtml10.png"
+            alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>-->
+    </div>
 
-</div>
+  </div>
 </body>
 </html>
 
